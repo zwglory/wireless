@@ -2,9 +2,11 @@
 #include <iomanip>		//std::setprecision(n), 设置有效数字为 n.
 #include "BERC.h"
 
+
 /***************************************************************
 	The Bit error rate counter class (BERC)
 ***************************************************************/
+
 /* Constructor. */
 BERC::BERC(int indelay, int inignorefirst, int inignorelast):
     delay(indelay), ignorefirst(inignorefirst), ignorelast(inignorelast),

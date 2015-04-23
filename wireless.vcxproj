@@ -40,6 +40,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <EmbedManifest>false</EmbedManifest>
+    <IncludePath>base;Channel;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -92,9 +93,9 @@
   <ItemGroup>
     <ClInclude Include="base\CodeTreeNode.h" />
     <ClInclude Include="base\Hash_func.h" />
+    <ClInclude Include="base\help_functions.h" />
     <ClInclude Include="base\Random.h" />
     <ClInclude Include="base\signals.h" />
-    <ClInclude Include="base\WirelessType.h" />
     <ClInclude Include="Channel\AWGN.h" />
     <ClInclude Include="Channel\BERC.h" />
     <ClInclude Include="Channel\ziggurat.h" />
@@ -102,6 +103,7 @@
     <ClInclude Include="RNG.h" />
     <ClInclude Include="SpineDecoder.h" />
     <ClInclude Include="SpineEncoder.h" />
+    <ClInclude Include="WirelessType.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <math.h>
-#include "..\base\WirelessType.h"
+#include "..\WirelessType.h"
 
 class BERC{
 public:

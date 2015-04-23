@@ -56,7 +56,7 @@ SpineEncoder::~SpineEncoder(){
 	待改进：待测试结束后，可以直接使用按二进制读入的文件数据作为待编码数据。
 */
 
-int* SpineEncoder::divm2bl(int* message){
+int* SpineEncoder::divm2bl(vector<int> message){
 	size_t k = this->k;
 	size_t n = this->n;
 	size_t len = this->len_spine;
@@ -69,11 +69,17 @@ int* SpineEncoder::divm2bl(int* message){
 	}//end for
 
 	/* dividing */
+	vector<int>::iterator it_message = message.begin();
 	for(int j=0; j!=len; ++j){
 		for(int i=0; i!=k; ++i){
-			message_block[j] += ((message[k*j+i]==1)?(1<<(k-i-1)):0);
+			if(it_message != message.end()){
+				message_block[j] += ((*(it_message++)==1)?(1<<(k-i-1)):0);
+			}else{
+				message_block[j] += 0;
+			}
+			
 		}//end for
-		cout << message_block[j] << '\t';
+		//cout << message_block[j] << '\t';
 	}//end for
 
 	return message_block;
@@ -82,7 +88,7 @@ int* SpineEncoder::divm2bl(int* message){
 //==================================
 // Encoder
 //==================================
-vector<double> SpineEncoder::encoder(int* message){
+vector<double> SpineEncoder::encoder(vector<int> message){
 
 	/* scalars and vectors for encoder */
 	size_t k = this->k;
@@ -107,27 +113,26 @@ vector<double> SpineEncoder::encoder(int* message){
 	SymbolMap mapper(c, precision);			// SymbolMap 对象
 
 	/* divide message into blocks. */
-	cout << "---------------divide message into blocks-----------------" << endl
-		 << "message block: " << endl;
+	/*cout << "---------------divide message into blocks-----------------" << endl
+		 << "message block: " << endl;*/
 	message_block = divm2bl(message);
 	cout << endl;
 
 
 	/* hash the message into spine[]. */
-	cout << "--------------hash the message------------------" << endl 
-		 << "Spine values: " << endl;
+	/*cout << "--------------hash the message------------------" << endl 
+		 << "Spine values: " << endl;*/
 	for(int i=0; i!=len_spine; ++i){
 		this->spine_value = hash_func(this->spine_value, message_block[i]);
 		this->spine[i] = this->spine_value;
 		rngs[i] = RNG(this->spine_value);
-		cout << spine_value << '\t';
+		//cout << spine_value << '\t';
 	}
 	cout << '\n' << "Hash complete." << endl;
 
 
 	/* making 3 passes, mapping to the symbol. */
-	cout << "------------making 3 passes, mapping to the symbol------------" << endl;
-
+	cout << "passes number: " << L << endl;
 	for(int j=0; j!=L; ++j){
 		for(int i=0; i!=len_spine; ++i){
 			//cout << "j: " << j << '\t' << "i: " << i << endl;

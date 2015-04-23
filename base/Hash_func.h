@@ -8,7 +8,7 @@
 #ifndef _HASH_FUNC_H_
 #define _HASH_FUNC_H_
 
-#include "WirelessType.h"
+#include "..\WirelessType.h"
 
 uint32_t hash_func(uint32_t spine_value, int message_block);
 uint32_t rot(uint32_t x, int k);

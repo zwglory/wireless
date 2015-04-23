@@ -9,7 +9,7 @@
 #define _RNG_H_
 
 #include <vector>
-#include "base\WirelessType.h"
+#include "WirelessType.h"
 
 class RNG{
 public:

@@ -101,8 +101,11 @@
     <ClInclude Include="SpineEncoder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="base\WirelessType.h">
+    <ClInclude Include="base\help_functions.h">
       <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="WirelessType.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

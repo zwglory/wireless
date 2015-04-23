@@ -8,9 +8,10 @@
 #include <map>
 #include <utility>
 
-#include "base\WirelessType.h"
+#include "WirelessType.h"
 #include "RNG.h"
 #include "Mapping.h"
+
 #include "base\Hash_func.h"
 #include "base\CodeTreeNode.h"
 

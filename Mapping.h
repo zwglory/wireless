@@ -9,7 +9,7 @@
 #define _MAPPING_H_
 
 #include <string>
-#include "base\WirelessType.h"
+#include "WirelessType.h"
 
 class SymbolMap{
 public:

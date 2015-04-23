@@ -6,7 +6,7 @@
 //====================================================================
 #include <vector>
 #include <string>
-#include "base\WirelessType.h"
+#include "WirelessType.h"
 
 #include "RNG.h"
 #include "Mapping.h"
@@ -26,12 +26,12 @@ public:
 	SpineEncoder(size_t k_in, int c_in, int precision_in, int L_in, int mlen);
 	virtual ~SpineEncoder();
 
-	vector<double> encoder(int* message);	
+	vector<double> encoder(vector<int> message);	
 
 	double power;				// power of symbol
 
 	//Divide message into blocks
-	int* divm2bl(int* message);
+	int* divm2bl(vector<int> message);
 
 private:
 	size_t n;
