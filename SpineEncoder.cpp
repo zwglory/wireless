@@ -116,7 +116,6 @@ vector<double> SpineEncoder::encoder(vector<int> message){
 	/*cout << "---------------divide message into blocks-----------------" << endl
 		 << "message block: " << endl;*/
 	message_block = divm2bl(message);
-	cout << endl;
 
 
 	/* hash the message into spine[]. */
@@ -128,7 +127,7 @@ vector<double> SpineEncoder::encoder(vector<int> message){
 		rngs[i] = RNG(this->spine_value);
 		//cout << spine_value << '\t';
 	}
-	cout << '\n' << "Hash complete." << endl;
+	cout << "Hash complete." << endl;
 
 
 	/* making 3 passes, mapping to the symbol. */

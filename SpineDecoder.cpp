@@ -255,17 +255,17 @@ vector<int> SpineDecoder::get_most_likely(){
 	int i = 0;
 
 	/* 2. Get the message blocks */
-	cout << "Decoded message block: " << endl;
+	//cout << "Decoded message block: " << endl;
 	while(node_it != the_best_node.path.end()){
 		message_block.push_back(*node_it);
-		cout << *node_it << '\t';
+		//cout << *node_it << '\t';
 		++i;
 		++node_it;
 	}
-	cout << endl;
+	//cout << endl;
 
 	/* 3. Get the message of 1 and 0 */
-	cout << "Decoded message: " << endl;
+	//cout << "Decoded message: " << endl;
 	vector<int>::iterator im = message_block.begin();
 	/*for(int j=0; j!=the_best_node.path.size(); ++j){
 		message[j] = (message_block[j]>=4)?1:0;
@@ -286,7 +286,7 @@ vector<int> SpineDecoder::get_most_likely(){
 		++im;
 	}
 
-	cout << endl;
+	//cout << endl;
 
 	if(!message_block.empty())
 		message_block.clear();
@@ -316,7 +316,7 @@ vector<int> SpineDecoder::decoder(){
 			prune_wavefront();
 	}//end for
 
-	cout << "Decoding result: " << endl;
+	//cout << "Decoding result: " << endl;
 	vector<int> message = get_most_likely();
 
 	/*cout << "¶Ô±È" << endl;

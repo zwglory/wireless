@@ -27,7 +27,9 @@ vec get_N0(const vec &EbN0, const double &Eb){
 	return output;
 }
 
-/* Siganls */
+/******************************************************
+	返回 [from, to] 的数组；若 points 为 1，则返回 to 
+*****************************************************/
 vec linspace(double from, double to, int points)
 {
   if (points < 2) {

@@ -66,6 +66,9 @@
     <ClCompile Include="SpineEncoder.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="base\CRC_32.cpp">
+      <Filter>Header Files\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\CodeTreeNode.h">
@@ -105,6 +108,12 @@
       <Filter>Header Files\base</Filter>
     </ClInclude>
     <ClInclude Include="WirelessType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="base\CRC_32.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

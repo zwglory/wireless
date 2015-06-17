@@ -128,6 +128,28 @@ inline void print_vector(const vec &in){
 
 
 /*********************************************************************
+	Print array. 
+	问题：按字节打印会有问题。
+**********************************************************************/
+
+static inline void print_array(uint8_t* aryData, size_t len){
+	size_t i = 0;
+	for(i=0; i!=len; ++i){
+		cout << aryData[i];
+	}//end for
+	cout << endl;
+}//end print_array()
+
+static inline void print_array(uint32_t* aryData, size_t len){
+	size_t i = 0;
+	for(i=0; i!=len; ++i){
+		cout << hex << *(aryData+i) << '\t';
+	}//end for
+	cout << endl;
+}//end print_array()
+
+
+/*********************************************************************
 	Save vector to file. 
 	输出的文件存储在 Data 文件夹中，
 	当 vector 名字为 "EbN0dB" 时，清空文件的内容
@@ -213,7 +235,7 @@ inline vector<int> Read_message(string filename, string binary_filename){
 	outfile.close();
 	delete [] rawdata;
 
-	cout << '\n' << "Writing complete." << endl;
+	cout << "Writing complete." << endl;
 
 	return message;
 }//end Read_message()
@@ -252,6 +274,92 @@ inline vector<int> Read_frame(string video_name, int frameNum){
 }//end Read_frame
 
 
-/*********************************************************************************/
+/********************************************************************************
+	vector<int>(bvec) to uint32_t
+	----------------------------
+	e.g.
+		int a[] = 
+		{
+			1,0,0,1,1,1,1,0,
+			0,0,0,1,0,1,1,0,
+			1,0,1,0,0,0,1,1,
+			1,0,1,0,0,1,0,1,
+
+			1,1,0,0,0,0,1,0,
+			1,1,1,1,0,0,0,0,
+			1,0,1,1,1,1,0,0,
+			0,0,1,0,1
+		};
+		pair<uint32_t*, int> va;
+		bvec v(a,a+sizeof(a)/sizeof(int));
+		va = bvec_uint32(v);
+
+		print_vector(v);
+		print_array(va.first, va.second);
+	
+**********************************************************************************/
+static inline pair<uint32_t*, size_t> bvec_uint32(bvec vecData){
+	int outLen = (vecData.size()+31)/32;
+	uint32_t* output = new uint32_t [outLen];
+	pair<uint32_t*, size_t> outpair(output, outLen);
+	
+	int i=0, j=0;
+	while(i != outLen){
+		*(output+i) = 0;
+		++i;
+	}//end while
+
+	bvec::iterator it = vecData.begin();
+	for(i=0; i != outLen; ++i){
+		j = 0;
+		while(it != vecData.end() && j!=32){
+			*(output+i) = *it + (*(output+i) << 1);
+			++it;
+			++j;
+		}//end while
+	}//end for
+	return outpair;
+}
+
+/********************************************************************************
+	vector<int>(bvec) to uint8_t
+	和 print_array 的 uint8_t 版本有待于进一步的调试。
+**********************************************************************************/
+static inline pair<uint8_t*, int> bvec_uint8(bvec vecData){
+	int outLen = (vecData.size()+7)/8;
+	uint8_t* output = new uint8_t [outLen];
+	
+	int i=0, j=0;
+	while(i != outLen){
+		*(output+i) = 0;
+		++i;
+	}//end while
+
+	bvec::iterator it = vecData.begin();
+	for(i=0; i != outLen; ++i){
+		j = 0;
+		while(it != vecData.end() && j!=8){
+			*(output+i) = *it + (*(output+i) << 1);
+			++it;
+			++j;
+		}//end while
+	}//end for
+
+	pair<uint8_t*, int> outpair(output, outLen);
+
+	return outpair;
+}
+
+/***************************************************************
+	Write bit vector.
+*****************************************************************/
+static inline void Write_bvec(bvec de_message){
+	ofstream outfile("Results\\output.txt", ios::binary);
+	pair<uint8_t*, int> dm = bvec_uint8(de_message);
+	for(int ii=0; ii!=dm.second; ++ii){
+		outfile << *(dm.first+ii);
+	}
+}//end Write_bvec()
+
 
 #endif

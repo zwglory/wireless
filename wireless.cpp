@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 	int k = 3,
 		c = 8,
 		precision = 8,
-		L = 3,
+		L = 2,
 		B = 4,
 		d = 2;
 
@@ -36,8 +36,8 @@ int main(int argc, char **argv)
 
 	cout << "Reading data >>>" << endl;
 	int frameNum = 90;
-	//vector<int> message = Read_message("TestFile.txt", "binary.txt");
-	vector<int> message = Read_frame("coastguard_qcif.yuv", frameNum);
+	vector<int> message = Read_message("TestFile.txt", "binary.txt");
+	//vector<int> message = Read_frame("coastguard_qcif.yuv", frameNum);
 	int mlen = int(message.size());
 
 	/* 2. Channel coding with spinal codes ***********************************/
@@ -78,7 +78,7 @@ int main(int argc, char **argv)
 	/* Init */
 	Ec = sc.power;				//The transmitted energy per symbol.
 	Eb = 1;					//The transmitted energy per bit.
-	EbN0dB = linspace(-1,1,1);	//Simulate for 10 Eb/N0 values from 0 to 9 dB.
+	EbN0dB = linspace(0,3,10);	//Simulate for 10 Eb/N0 values from 0 to 9 dB.
 	EbN0 = inv_dB(EbN0dB);		//Calculate Eb/N0 in a linear scale instead of dB. 
 	N0 = get_N0(EbN0,Eb);		//N0 is the variance of the (complex valued) noise.
 	
@@ -106,14 +106,13 @@ int main(int argc, char **argv)
 				de_message.erase(de_message.end()-1);
 		}//end if
 
+
 		/* 5. Calculate the bit error rate. ***************************************************/
 
 		berc.clear();									//Clear the bit error rate counter
 		berc.count(message,de_message);				//Count the bit errors
 		bit_error_rate.push_back(berc.get_errorrate());	//Save the estimated BER in the result vector
 		//berc.report();
-
-		/* 要在这个地方加上与 BER 的阈值做比较的部分 */
 
 		if(!sym_recv.empty())
 			sym_recv.clear();
