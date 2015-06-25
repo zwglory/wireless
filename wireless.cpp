@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 	int k = 3,
 		c = 8,
 		precision = 8,
-		L = 2,
+		L = 3,
 		B = 4,
 		d = 2;
 
@@ -78,7 +78,7 @@ int main(int argc, char **argv)
 	/* Init */
 	Ec = sc.power;				//The transmitted energy per symbol.
 	Eb = 1;					//The transmitted energy per bit.
-	EbN0dB = linspace(0,3,10);	//Simulate for 10 Eb/N0 values from 0 to 9 dB.
+	EbN0dB = linspace(-1,10,10);	//Simulate for 10 Eb/N0 values from 0 to 9 dB.
 	EbN0 = inv_dB(EbN0dB);		//Calculate Eb/N0 in a linear scale instead of dB. 
 	N0 = get_N0(EbN0,Eb);		//N0 is the variance of the (complex valued) noise.
 	
